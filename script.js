@@ -1,9 +1,9 @@
 // Game
 
-let gameState = false; // 
 let personTurn = false; // Can hover and select, or cannot hover and select
 let personWins = 0;
 let computerWins = 0;
+let maxWins = 5;
 
 //Start button
 
@@ -77,14 +77,34 @@ function evaluate(selection){
 
     addFlag(winner);
 
-    // Reset after 1 second
-    setTimeout(resetGame, 1200);
+    // Reset after 1.2 seconds if someone has not won n times
+    if (personWins < maxWins && computerWins < maxWins)
+    {
+        setTimeout(resetGame, 1200);
+    }
+    else{
+        if (winner == 0)
+        {
+            let computerIcon = document.querySelector("#computer-icon");
+            computerIcon.style.animationName = "win";
+            computerIcon.style.animationDuration = "1s";
+            computerIcon.style.animationTimingFunction = "ease";
+            computerIcon.style.animationFillMode = "forwards";
+        }
+        else if (winner == 1)
+        {
+            let personIcon = document.querySelector("#person-icon");
+            personIcon.style.animationName = "win";
+            personIcon.style.animationDuration = "1s";
+            personIcon.style.animationTimingFunction = "ease";
+            personIcon.style.animationFillMode = "forwards";
+        }
+    }
 }
 
 // Reset game
 
 function resetGame(){
-    console.log("jaja");
 
     //Restore person controls
     Array.from(personControls).forEach(control => {
@@ -103,7 +123,6 @@ function resetGame(){
         control.classList.remove("computer-selected");
     });
 
-    gameState = true;
     personTurn = true;
 }
 

@@ -169,6 +169,17 @@ a:hover{
     margin-left: 15px;
 }
 
+@keyframes win{
+    0%{
+        color: #393b45; 
+    }
+
+    50%, 100%{
+        color: #f3b54a;
+    }
+}
+
+
 /* For mobile */
 
 @media (max-width: 800px)
