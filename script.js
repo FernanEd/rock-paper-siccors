@@ -8,7 +8,6 @@ let computerWins = 0;
 //Start button
 
 let play = document.querySelector("#play");
-
 let playBtn = play.firstElementChild;
 
 playBtn.addEventListener("click", () => {
@@ -20,7 +19,6 @@ playBtn.addEventListener("click", () => {
         //Start game
         gameState = true;
         personTurn = true;
-        playerTurn();
     })
 })
 
@@ -28,22 +26,25 @@ playBtn.addEventListener("click", () => {
 
 let personControls = document.querySelector("#person-controls").children;
 
-
-function playerTurn(){
-    Array.from(personControls).forEach(control => {
-        control.addEventListener("click", e => {
+Array.from(personControls).forEach(control => {
+    control.addEventListener("click", e => {
+        if (personTurn){
             control.classList.add("person-selected");
-            endTurn();
             evaluate(control.id);
-            control.removeEventListener("click", e => {});
-        })
+            endTurn();
+        }
     });
-}
+});
+
+// Game Logic
 
 function endTurn(){
     Array.from(personControls).forEach(control => {
         // Remove hover effect
         control.classList.remove("person-selectable");
+
+        // Remove clickeability
+        personTurn = false;
     });
 }
 
@@ -52,21 +53,61 @@ function evaluate(selection){
     let computerOptions = ['computer-rock', 'computer-paper', 'computer-scissors'];
     let randomIndex = Math.floor(Math.random() * computerOptions.length); 
     let computerSelect = computerOptions[randomIndex]; 
-    let winner = 0; // 0 - Computer 1 - Person
+    let winner = 0; // 0 - Computer 1 - Person 2 - Tie
 
     // Make the computer control change color
     let computerControl = document.querySelector(`#${computerSelect}`);
     computerControl.classList.add('computer-selected');
 
-    
+    // Check who wins depending on what they choosed, if non tie
+    if ((computerSelect == "computer-rock") && (selection == "person-scissors") 
+        || (computerSelect == "computer-paper") && (selection == "person-rock") 
+        || (computerSelect == "computer-scissors") && (selection == "person-paper")){
+        winner = 0
+    }
+    else if ((computerSelect == "computer-rock") && (selection == "person-paper") 
+        || (computerSelect == "computer-paper") && (selection == "person-scissors") 
+        || (computerSelect == "computer-scissors") && (selection == "person-rock")){
+        winner = 1;
+    }
+    else{ 
+        winner = 2;
+
+    }
 
     addFlag(winner);
+
+    // Reset after 1 second
+    setTimeout(resetGame, 1200);
 }
 
-//while (personWins <= 5 && computerWins <= 5)
+// Reset game
+
+function resetGame(){
+    console.log("jaja");
+
+    //Restore person controls
+    Array.from(personControls).forEach(control => {
+        // Remove selected
+        control.classList.remove("person-selected");
+
+        // Restore hover effect
+        control.classList.add("person-selectable");
+    });
+
+    //Restore computer controls
+    let computerControls = document.querySelector("#computer-controls").children;
+
+    Array.from(computerControls).forEach(control => {
+        // Remove selected
+        control.classList.remove("computer-selected");
+    });
+
+    gameState = true;
+    personTurn = true;
+}
 
 
-let computerControls = document.querySelector("#computer-controls").children;
 
 // Flags
 
@@ -84,7 +125,7 @@ function addFlag(winner){
         computerFlags.innerHTML += FLAG_WIN;
         computerWins ++;
     }
-    else{
+    else if (winner == 1){
         personFlags.innerHTML += FLAG_WIN;
         personWins ++;
     }
