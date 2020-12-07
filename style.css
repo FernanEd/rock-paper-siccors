@@ -6,14 +6,17 @@ body{
     color: #393b45;
 }
 
+
 a{
     text-decoration: none;
     color: #f3b54a;
 }
 
+
 a:hover{
     color: #6e7889;
 }
+
 
 #game{
     margin: auto;
@@ -24,16 +27,19 @@ a:hover{
     align-items: center;
 }
 
+
 #person-side, #computer-side{
     flex: 1;
     justify-content: center;
     align-items: center;
 }
 
+
 #person-wins, #computer-wins{
     text-align: center;
     height: 46px;
 }
+
 
 #person-wins svg, #computer-wins svg{
     width: 46px;
@@ -85,16 +91,18 @@ a:hover{
 }
 
 
-#person-controls > .control:hover, #person-controls > .control:active{
+.person-selectable:hover, #person-selectable:active{
     color: #f3b54a;
     cursor: pointer;
     box-shadow: 0 2px 10px 2px gray;
 }
 
+
 .person-selected{
     background-color: #f3b54a;
     color: white;
 }
+
 
 .computer-selected{
     background-color: #6e7889;
@@ -150,7 +158,7 @@ a:hover{
     height: 100%;
 }
 
-#play-button:hover{
+#play-button:hover, #play-button:active{
     cursor: pointer;
     filter: drop-shadow(2px 2px 10px white);
 }
