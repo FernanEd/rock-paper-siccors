@@ -44,8 +44,27 @@ a:hover{
 #person-wins svg, #computer-wins svg{
     width: 46px;
     height: 46px;
+    animation-name: flag;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
 }
 
+
+@keyframes flag{
+    0%{
+        opacity: 0;
+        transform: scale(0.1);
+    }
+
+    60%{
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
 
 #person-icon, #computer-icon{
     width: 20vw; height: 20vw;
